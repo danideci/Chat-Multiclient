@@ -11,7 +11,7 @@ public class serverPort
 	public static void main(String[] args) 
 	{
 		//dichiarazioni
-		JFrame f = new JFrame("Welcome in the MultiChat");
+		JFrame f = new JFrame("Benvenuto in the MultiChat");
 			f.setSize(300, 180);
 			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel p = new JPanel();
