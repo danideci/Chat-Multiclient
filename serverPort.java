@@ -8,7 +8,7 @@ import javax.swing.text.*;
 
 public class serverPort
 {
-	public static void main(String[] args) 
+	public serverPort()
 	{
 		//declarations
 		
@@ -55,8 +55,12 @@ public class serverPort
 			b.setBounds(180,120,80,25);
 			p.add(b);
 			
-			//b.addActionListener(new serverPortListener(f1,f2,l3));
+			b.addActionListener(new serverPortListener(f1,f2,l3));
 			
 			f.setVisible(true);
+	}
+	public static void main(String[] args) 
+	{
+		 new serverPort();
 	}
 }
