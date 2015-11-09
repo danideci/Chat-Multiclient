@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 
-public class Login
+public class Login 
 {
 	public static void main(String args[])
 	{
@@ -35,10 +35,10 @@ public class Login
 		p.add(l0);
 		
 		JLabel l1 = new JLabel("Username");
-		l1.setBounds(10, 50, 80, 25);
+		l1.setBounds(10, 50, 60, 25);
 		p.add(l1);
 		
-		JTextField f1 = new JTextField();		
+		TextField f1 = new TextField();		
 		f1.setBounds(80, 50, 135, 25);
 		p.add(f1);
 		
@@ -54,7 +54,17 @@ public class Login
 		JButton b = new JButton("Login");
 		b.setBounds(133,120,80,25);
 		p.add(b);
-		//b.addActionListener(new LoginListener(f1,f2));
+		
+		if(f1==null||f2==null)
+		
+			System.out.println("NON va bene");
+			//JOptionPane.showMessageDialog(this,"I dati sono obbligatori","atttenzione",JOptionPane.WARNING_MESSAGE);
+		
+		else
+			//b.addActionListener(new LoginListener(f1,f2));
+		
+		f1.setName("");
+		f2.setName("");
 		
 		JButton b1 = new JButton();
 		b1.setText("<HTML><FONT color=\"#000099\"><U>Aren't you subscribed? Click here!</U></FONT></HTML>");

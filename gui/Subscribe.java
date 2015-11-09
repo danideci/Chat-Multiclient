@@ -74,7 +74,7 @@ public class Subscribe implements ActionListener
 		
 		if(passSubscribe == confirmPassSubscribe)
 		{
-			b.addActionListener(new SubscribeListener(f1,f2,f4));
+			//b.addActionListener(new SubscribeListener(f1,f2,f4));
 		}
 		
 		f.setVisible(true);
