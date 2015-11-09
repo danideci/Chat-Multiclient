@@ -2,28 +2,39 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-class ThreadServer implements Runnable
+class ThreadServer extends Thread
 {
 	Socket s;
 	BufferedReader myInput = null;
 	PrintWriter myOutput = null;
-	controllaUtente ut = null;
+	controlloRegistrazione ut = null;
+	controlloNoReg nr = null;
+	controllaUtente cu =null;
+	FileElencoAccessi fea = null;
+	String messaggio;
+	String input;
+	String utente;
+	String pass;
+	Vector<ThreadServer> vett;
 	public ThreadServer (Socket s,Vector<ThreadServer> vett)
 	{
 		this.s = s;
-		this.vett=vett();
+		this.vett=vett;
 		this.start();
-		
 	}
 	
 	public void run ()
 	{
+		try
+		{
 		myInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		myOutput = new PrintWriter(s.getOutputStream());
-		String input;
-		String messaggio=myInput.readLine();
-		String utente = myInput.readLine();
-		String pass = myInput.readLine();
+		messaggio=myInput.readLine();
+		utente = myInput.readLine();
+		pass = myInput.readLine();
+		} catch(Exception e){
+		System.out.println("Errore 1");
+		}
 		if(messaggio.equals("registra"))
 		{	
 			ut = new controlloRegistrazione(utente,pass);
@@ -36,20 +47,21 @@ class ThreadServer implements Runnable
 			{
 				myOutput.println("registrato");
 				myOutput.flush();
-				scriviRegistrazioni(user,pass);
+				scriviRegistrazioni(utente,pass);
 			}
 		}
 		if(messaggio.equals("login"))
 		{
-			ut = new controllaUtente(utente,pass);
+			cu = new controllaUtente(utente,pass);
 			if(ut.accesso() == true)
 			{
+				fea.scriviCon(utente);
 				myOutput.println("connesso");
 				myOutput.flush();
 				//invio dei messaggi ad altri client
 				getMsg();
 			}
-			else()
+			else
 			{
 				myOutput.println("non connesso");
 				myOutput.flush();
@@ -59,9 +71,10 @@ class ThreadServer implements Runnable
 		
 		if(messaggio.equals("noReg"))
 		{
-			ut = new controlloNoReg(utente,pass); 
+			nr = new controlloNoReg(utente,pass,vett); 
 			if(ut.accesso()==true)
 			{	
+				fea.scriviCon(utente);
 				myOutput.println("corretto");
 				myOutput.flush();
 				getMsg();
@@ -79,13 +92,18 @@ class ThreadServer implements Runnable
 	{
 		while(true)
 				{
-					input = myInput.ReadLine();
+					try
+					{
+					input = myInput.readLine();
 					if(!input.equals(""))
 					{
-						for(i=0;i<vett.size();i++)
+						for(int i=0;i<vett.size();i++)
 						{
-							vett[i].stampaMessaggio(input,utente);
+							vett.elementAt(i).stampaMessaggio(input,utente);
 						}						
+					}
+					}catch (Exception e){
+					System.out.println("Errore 2");
 					}
 				}
 	}
@@ -94,14 +112,28 @@ class ThreadServer implements Runnable
 	{
 		myOutput.println(utente + " : " + input);
 		myOutput.flush();
+		try
+		{
+		FileWriter fConv =new FileWriter ("conversazioni.txt",true);
+		PrintWriter fOUT = new PrintWriter(fConv);
+		GregorianCalendar gc = new GregorianCalendar();
+		
+			fOUT.println(gc.get(Calendar.DATE)+"-"+gc.get(Calendar.MONTH)+"-"+gc.get(Calendar.YEAR)+"  "+gc.get(Calendar.HOUR_OF_DAY)+":"+gc.get(Calendar.MINUTE)+"    "+utente+" : " +input);
+			fOUT.flush();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Errore nella scrittura delle conversazioni");
+		}
 	}
 
 	public void scriviRegistrazioni(String user,String pass)
 	{
-		FileWriter fReg =new FileWriter fReg("registrazioni.txt",true);
-		PrintWriter fOUT = new PrintWriter(f);
 		try
 		{
+		FileWriter fReg =new FileWriter("registrazioni.txt",true);
+		PrintWriter fOUT = new PrintWriter(fReg);
+		
 			fOUT.println(user+" / "+pass+"\n");
 			fOUT.flush();
 		}

@@ -1,13 +1,13 @@
 import java.util.*;
 import java.io.*;
 
-class controllaUtente
+class controlloRegistrazione
 {
 	
 	String utente;
 	String pass;
 	
-	public controllaUtente(String utente, String pass)
+	public controlloRegistrazione(String utente, String pass)
 	{
 		this.utente = utente;
 		this.pass = pass;
@@ -33,7 +33,7 @@ class controllaUtente
 			lettura = fIN.readLine();
 			while(lettura != null)
 			{
-				t = new StringTokenizer(lettura,",");
+				t = new StringTokenizer(lettura," / ");
 				if(t.nextToken().equals(utente))
 				{
 					return(true);

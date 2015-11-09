@@ -33,7 +33,7 @@ class controllaUtente
 			lettura = fIN.readLine();
 			while(lettura != null)
 			{
-				t = new StringTokenizer(lettura,",");
+				t = new StringTokenizer(lettura," / ");
 				if(t.nextToken().equals(utente) && t.nextToken().equals(pass))
 				{
 					return(true);

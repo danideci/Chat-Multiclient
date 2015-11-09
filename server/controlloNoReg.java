@@ -35,7 +35,7 @@ class controlloNoReg
 			lettura = fIN.readLine();
 			while(lettura != null)
 			{
-				t = new StringTokenizer(lettura,",");
+				t = new StringTokenizer(lettura," / ");
 				if(t.nextToken().equals(utente))
 				{
 					return true;
@@ -49,9 +49,9 @@ class controlloNoReg
 		}
 
 		//controllo utenti connessi
-		for(i=0;i<vett.size();i++)
+		for(int i=0;i<vett.size();i++)
 		{
-			if(vett[i].utente.equals(utente))
+			if(vett.elementAt(i).utente.equals(utente))
 			{
 				return true;
 			}

@@ -11,8 +11,8 @@ class RegisterFile
 
  	public void ScriviRegistrazioni()
 	{
-		FileWriter fReg =new FileWriter fReg("registrazioni.txt",true);
-		PrintWriter fOUT = new PrintWriter(f);
+		FileWriter fReg =new FileWriter ("registrazioni.txt",true);
+		PrintWriter fOUT = new PrintWriter(fReg);
 		try
 		{
 			fOUT.println(user+" / "+pass+"\n");
