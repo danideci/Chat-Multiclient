@@ -7,7 +7,7 @@ import java.net.*;
 
 
 
-class serverPortListener 
+class MultiChatListener implements ActionListener
 {						
 
 	private InputStreamReader sIn = new InputStreamReader(System.in);
@@ -15,7 +15,7 @@ class serverPortListener
 	private	int Port;
 	private	String IP = null;
 	
-	public serverPortListener(JTextField fi, JTextField fi2)
+	public MultiChatListener(TextField fi, TextField fi2)
 	{
 		//Converto in intero il contenuto del campo JTextField
 		Port = Integer.parseInt(fi2.getText());
@@ -35,28 +35,30 @@ class serverPortListener
 			ServerOutput.flush();	
 			ServerOutput.println(Port);
 			ServerOutput.flush();
+
+			while (!(ServerInput.readLine() == "corretto" || ServerInput.readLine() == "non corretto"))
+
+			{
+}
+   
+			if(ServerInput.readLine() == "corretto")
+
+   			{
+    
+   
+				 Login.main(null);
+  
+			}
+
+  			else
+			{
+  
+				//comando per pulire i campi
+	
+			}
 		}
 		catch(Exception ex){}
 	}
 	
-	while (!(ServerInput.readLine() == "corretto" || ServerInput.readLine() == "non corretto"))
 
-	{
-  
-	}
-   
-	if(ServerInput.readLine() == "corretto")
-
-   	{
-    
-   
-		 login.main();
-  
-	}
-
-  	else
-	{
-  
-	//comando per pulire i campi
-	}
 }
