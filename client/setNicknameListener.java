@@ -7,7 +7,7 @@ import java.net.*;
 //class connetti
 
 
-class setNicknameListener
+class setNicknameListener implements ActionListener
 {						
 
 	private InputStreamReader sIn = new InputStreamReader(System.in);
@@ -15,7 +15,7 @@ class setNicknameListener
 	private	int Port;
 	private	String IP = null;
 	
-	public serverPortListener(JTextField fi,JTextField fi2)
+	public serverPortListener(TextField fi,TextField fi2)
 	{
 		//Converto in intero il contenuto del campo JTextField
 		Port = Integer.parseInt(fi2.getText());
@@ -37,34 +37,27 @@ class setNicknameListener
 			ServerOutput.flush();	
 			ServerOutput.println(Port);
 			ServerOutput.flush();
-		}
-		catch(Exception ex){}
+			
+			while (!((ServerInput.readLine() == "corretto") || (ServerInput.readLine() == "non corretto")))
+			{}
+	   
+			if(ServerInput.readLine() == "corretto")
+			{
+			
+		   
+				 JOptionPane.showMessageDialog(null, "Accesso alla chat.", "Accesso Confermato", JOptionPane.INFORMATION_MESSAGE);
+
+
+				//comando aprire la chat
+		  
+			}
+			else
+			JOptionPane.showMessageDialog(null, "I dati inseriti non sono corretti.", "Accesso negato", JOptionPane.WARNING_MESSAGE);
+				}
+				catch(Exception ex){}
 	}
 	
-	while (!(ServerInput.readLine() == "corretto" || ServerInput.readLine() == "non corretto"))
-	{}
-   
-	if(ServerInput.readLine() == "corretto")
 
-   	{
-    
-   
-		 JOptionPane.showMessageDialog(null, "Accesso alla chat.", "Accesso Confermato", JOptionPane.INFORMATION_MESSAGE);
-
-
-		//comando aprire la chat
-  
-	}
-
-  	else
-	{
-  
-	JOptionPane.showMessageDialog(null, "I dati inseriti non sono corretti.", "Accesso negato", JOptionPane.WARNING_MESSAGE);
-  
-
-	{
-
-	}
 
 	
 	

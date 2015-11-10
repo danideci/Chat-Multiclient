@@ -6,7 +6,7 @@ import java.net.*;
 
  
 
-class SubscribeListener
+class SubscribeListener implements ActionListener
 {						
 
 	private InputStreamReader sIn = new InputStreamReader(System.in);
@@ -15,7 +15,7 @@ class SubscribeListener
 	private	String Password;
 	private	String Nickname;
 	
-	public SubscribeListener(JTextField fi, JTextField fi2, JTextField fi3)
+	public SubscribeListener(TextField fi, TextField fi2, TextField fi3)
 	{
 		//Converto in testo il contenuto del campo JTextField
 		Username = fi.getText();

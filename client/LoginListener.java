@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-class LoginListener  
+class LoginListener  implements ActionListener
 {
 	private String getUsername;
 	private String getPassword;
@@ -21,22 +21,19 @@ class LoginListener
 		{
 			//Creation of the Socket to communicate with the server
 			s = new Socket("LocalHost",1234);
-		}
-		catch (Exception e)
-		{
-			System.out.println("Errore nella creazione del socket");
-		}
-		try
-		{
 			//Creation of the server's input stream 
 			sIn = new InputStreamReader(s.getInputStream());					
 			ServerInput = new BufferedReader(sIn);		
 			//Creation of the output stream to the server
 			ServerOutput = new PrintWriter(s.getOutputStream());
 		}
-		catch(IOException e)
+		catch (IOException e)
 		{
-			System.out.println("Errore nella creazione degli stream");
+			System.out.println("Errore nella creazione  degli stream");
+		}
+		catch(Exception e)
+		{
+			System.out.println("Errore nella creazione del socket");
 		}
 
 	}
