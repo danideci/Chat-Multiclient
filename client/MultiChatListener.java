@@ -15,7 +15,7 @@ class MultiChatListener implements ActionListener
 	private	int Port;
 	private	String IP = null;
 	
-	public MultiChatListener(TextField fi, TextField fi2)
+	public MultiChatListener(JTextField fi, JTextField fi2)
 	{
 		//Converto in intero il contenuto del campo JTextField
 		Port = Integer.parseInt(fi2.getText());
