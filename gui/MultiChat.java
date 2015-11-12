@@ -27,31 +27,31 @@ public class MultiChat
 		//graphic server ip address
 
 		String serversays = "Please insert Server's IP and Port";
-		JLabel l3 = new JLabel(serversays+"");
+		Label l3 = new Label(serversays+"");
 			l3.setBounds(10,10,250,25);
 			p.add(l3);
 
-		JLabel l1 = new JLabel("IP address");
+		Label l1 = new Label("IP address");
 			l1.setBounds(10, 50, 80, 25);
 			p.add(l1);
 		
-		JTextField f1 = new JTextField();		
+		TextField f1 = new TextField();		
 			f1.setBounds(100, 50, 160, 25);
 			p.add(f1);
 		
 		//grafic port
 		
-		JLabel l2 = new JLabel("Port");
+		Label l2 = new Label("Port");
 			l2.setBounds(10, 80, 80, 25);
 			p.add(l2);
 			
-		JTextField f2 = new JTextField();
+		TextField f2 = new TextField();
 			f2.setBounds(100, 80, 160, 25);
 			p.add(f2);
 		
 		//enter button and server message
 		
-		JButton b = new JButton("Enter");
+		Button b = new Button("Enter");
 			b.setBounds(180,120,80,25);
 			p.add(b);
 			

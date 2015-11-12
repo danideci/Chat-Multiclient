@@ -12,24 +12,28 @@ class MultiChatListener implements ActionListener
 
 	private InputStreamReader sIn = new InputStreamReader(System.in);
 	private BufferedReader ServerInput = new BufferedReader(sIn);								
-	private	int Port;
-	private	String IP = null;
+	private	TextField IP;
+	private TextField Port;
+	private Label message;
 	
-	public MultiChatListener(JTextField fi, JTextField fi2)
+	public MultiChatListener(TextField fi,TextField fi2,Label l3)
 	{
-		//Converto in intero il contenuto del campo JTextField
-		Port = Integer.parseInt(fi2.getText());
-		//Converto in testo il contenuto del campo JTextField
-		IP = fi.getText();
+		//Acquisisco le textfield e il label passato dalla GUI
+		IP = fi;
+		Port = fi2;
+		message = l3;
+
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
+		
 		try
 		{
+			String socketIP = IP.getText();
+			int socketPort=Integer.parseInt(Port.getText());
 			//Creazione socket
-	
-			Socket s = new Socket(IP,Port);
+			Socket s = new Socket(socketIP,socketPort);
 			PrintWriter ServerOutput = new PrintWriter(s.getOutputStream());
 			ServerOutput.println(IP);
 			ServerOutput.flush();	
@@ -53,11 +57,17 @@ class MultiChatListener implements ActionListener
   			else
 			{
   
-				//comando per pulire i campi
+				message.setForeground(Color.RED);
+				message.setText("");
+				IP.setText("");
+				Port.setText("");
 	
 			}
 		}
-		catch(Exception ex){}
+		catch(Exception ex)
+		{
+			System.out.println("Errore!");
+		}
 	}
 	
 
