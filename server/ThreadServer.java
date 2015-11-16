@@ -29,7 +29,16 @@ class ThreadServer extends Thread
 		{
 		myInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		myOutput = new PrintWriter(s.getOutputStream());
-		messaggio=myInput.readLine();
+		myOutput.println("benvenuto");
+		myOutput.flush();
+		
+		
+		messaggio = myInput.readLine();
+		while(!(messaggio.equals("login")||messaggio.equals("noReg")||messaggio.equals("registra")));
+		{
+			System.out.println(""+messaggio);
+			messaggio = myInput.readLine();
+		}
 		utente = myInput.readLine();
 		pass = myInput.readLine();
 		} catch(Exception e){

@@ -6,14 +6,20 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 
-public class Login 
+public class Login implements ActionListener
 {
-	public static void main(String args[])
+	
+	private Socket s;
+	private JFrame f;
+	private TextField f1;
+	private TextField f2;
+	
+	public Login(Socket s)
 	{
 		
 		//declarations
-		
-		JFrame f = new JFrame("Login");
+		this.s=s;
+		f = new JFrame("Login");
 		f.setSize(230,250);
 		f.setLocation(250,250);
 		f.setResizable(false);
@@ -23,9 +29,6 @@ public class Login
 		p.setLayout(null);
 		Container c = f.getContentPane();
 		c.add(p);
-		
-		String userLogin;
-		String passLogin;
 		
 		//setting graphics
 		
@@ -38,7 +41,7 @@ public class Login
 		l1.setBounds(10, 50, 60, 25);
 		p.add(l1);
 		
-		TextField f1 = new TextField();		
+		f1 = new TextField();		
 		f1.setBounds(80, 50, 135, 25);
 		p.add(f1);
 		
@@ -46,27 +49,21 @@ public class Login
 		l2.setBounds(10, 85, 60, 25);
 		p.add(l2);
 		
-		TextField f2 = new TextField();	
+		f2 = new TextField();	
 		f2.setEchoChar('*');		
 		f2.setBounds(80, 85, 135, 25);
 		p.add(f2);
 		
-		JButton b = new JButton("Login");
+		JButton b = new JButton("login");
 		b.setBounds(133,120,80,25);
 		p.add(b);
 		
-		if(f1==null||f2==null)
 		
-			System.out.println("NON va bene");
-			//JOptionPane.showMessageDialog(this,"I dati sono obbligatori","atttenzione",JOptionPane.WARNING_MESSAGE);
 		
-		else
-			//b.addActionListener(new LoginListener(f1,f2));
+			b.addActionListener(this);
 		
-		f1.setName("");
-		f2.setName("");
 		
-		JButton b1 = new JButton();
+		JButton b1 = new JButton("Subscribe");
 		b1.setText("<HTML><FONT color=\"#000099\"><U>Aren't you subscribed? Click here!</U></FONT></HTML>");
 		b1.setBounds(-18,150,250,25);
 		p.add(b1);
@@ -74,9 +71,9 @@ public class Login
 		b1.setBorderPainted(false);
 		b1.setOpaque(false);
 		b1.setBackground(Color.WHITE);
-		b1.addActionListener(new Subscribe());
+		b1.addActionListener(this);
 
-		JButton b2 = new JButton();
+		JButton b2 = new JButton("UnkownUser");
 		b2.setText("<HTML><FONT color=\"#000099\"><U>Enter without subscribe</A></U></FONT></HTML>");
 		b2.setBounds(-33,180,220,25);
 		p.add(b2);
@@ -84,11 +81,36 @@ public class Login
 		b2.setBorderPainted(false);
 		b2.setOpaque(false);
 		b2.setBackground(Color.WHITE);
-		b2.addActionListener(new setNickname());
+		b2.addActionListener(this);
 		
 		
 		
 		f.setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		String pulsante = e.getActionCommand();
+		
+		if(pulsante.equals("login"))
+		{
+			if(!(f1.getText().equals("")||f2.getText().equals("")))
+			{
+				LoginListener log = new LoginListener(f1,f2,s);
+			}
+			else
+		{
+			
+		}
+		}
+		else if(pulsante.equals("Subscribe"))
+		{
+			
+		}
+		else if(pulsante.equals("UnknownUser"))
+		{
+			
+		}
 	}
 }
 		

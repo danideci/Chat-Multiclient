@@ -13,14 +13,12 @@ class LoginListener  implements ActionListener
 	private BufferedReader ServerInput;
 	private PrintWriter ServerOutput;
 	
-	public LoginListener(TextField field1, TextField field2)
+	public LoginListener(TextField field1, TextField field2,Socket s)
 	{
 		getUsername = field1.getText();
 		getPassword = field2.getText();
 		try
 		{
-			//Creation of the Socket to communicate with the server
-			s = new Socket("LocalHost",1234);
 			//Creation of the server's input stream 
 			sIn = new InputStreamReader(s.getInputStream());					
 			ServerInput = new BufferedReader(sIn);		
