@@ -7,6 +7,8 @@ class FileElencoAccessi
 {
 	String utente;
 	
+	public FileElencoAccessi(){}
+	
 	public void scriviCon(String utente)
 	{
 		try
