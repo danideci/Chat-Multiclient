@@ -7,68 +7,59 @@ import java.net.*;
 
 
 
-class MultiChatListener implements ActionListener
+class MultiChatListener
 {						
 
-	private InputStreamReader sIn = new InputStreamReader(System.in);
-	private BufferedReader ServerInput = new BufferedReader(sIn);								
+	
+	private BufferedReader ServerInput;							
 	private	TextField IP;
 	private TextField Port;
 	private Label message;
+	private Socket s;
+	private JFrame f;
 	
-	public MultiChatListener(TextField fi,TextField fi2,Label l3)
+	public MultiChatListener(TextField fi,TextField fi2,Label l3,JFrame f)
 	{
 		//Acquisisco le textfield e il label passato dalla GUI
 		IP = fi;
 		Port = fi2;
 		message = l3;
-
-	}
-	
-	public void actionPerformed(ActionEvent e)
-	{
-		
+		this.f=f;
 		try
 		{
 			String socketIP = IP.getText();
 			int socketPort=Integer.parseInt(Port.getText());
 			//Creazione socket
-			Socket s = new Socket(socketIP,socketPort);
+			
+			s = new Socket(socketIP,socketPort);
+			BufferedReader ServerInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			PrintWriter ServerOutput = new PrintWriter(s.getOutputStream());
-			ServerOutput.println(IP);
-			ServerOutput.flush();	
-			ServerOutput.println(Port);
-			ServerOutput.flush();
-
-			while (!(ServerInput.readLine() == "corretto" || ServerInput.readLine() == "non corretto"))
-
+			if(ServerInput.readLine().equals("benvenuto"))
 			{
-}
-   
-			if(ServerInput.readLine() == "corretto")
-
-   			{
-    
-   
-				 Login.main(null);
-  
+				Login log = new Login(s);
+				f.setVisible(false);
 			}
-
-  			else
+			else
 			{
-  
 				message.setForeground(Color.RED);
-				message.setText("");
+				message.setText("Hai sbagliato");
 				IP.setText("");
 				Port.setText("");
-	
-			}
+			}				
+				
+
+
 		}
 		catch(Exception ex)
 		{
-			System.out.println("Errore!");
+			message.setForeground(Color.RED);
+			message.setText("Hai sbagliato");
+			IP.setText("");
+			Port.setText("");
 		}
+
 	}
+	
 	
 
 }

@@ -31,16 +31,12 @@ class ThreadServer extends Thread
 		
 		myInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		myOutput = new PrintWriter(s.getOutputStream());
-<<<<<<< HEAD
-		messaggio=myInput.readLine();
-=======
 		myOutput.println("benvenuto");
 		myOutput.flush();
 		
 
 
 		messaggio = myInput.readLine();
->>>>>>> origin/master
 		utente = myInput.readLine();
 		pass = myInput.readLine();
 		} catch(Exception e){
