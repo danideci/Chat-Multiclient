@@ -2,11 +2,17 @@
 Git per il progetto della Chat Multiclient
 
 Per utilizzare Git da linea di comando:
-andare sulla cartella che e' sede del progetto e digitare
+
+Al primo utilizzo in assoluto,  andare sulla cartella che e' sede del progetto e digitare
 
 ```bash
 git init
 git clone https://github.com/danedeci/Chat-Multiclient.git
+```
+
+Se invece avete già una copia sul vostro pc e volete aggiornarla dovete digitare
+```bash
+git pull
 ```
 
 A questo punto avete una copia di tutto il progetto nella cartella che avete scelto
