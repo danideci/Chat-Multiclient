@@ -100,13 +100,31 @@ class ThreadServer extends Thread
 					try
 					{
 					input = myInput.readLine();
-					if(!input.equals(""))
+					StringTokenizer st2= new StringTokenizer(input,"+");
+					if(st2.nextToken().equals("@"))  //Stringa da decidere
 					{
-						for(int i=0;i<vett.size();i++)
+						String controllo;
+						String mexPriv;
+						controllo = st2.nextToken();
+						mexPriv = st2.nextToken();
+						for(i=0;i<vett.size();i++)
 						{
-							vett.elementAt(i).stampaMessaggio(input,utente);
-						}						
+							if(controllo.equals(vett[i].utente))
+							{
+								vett.elementAt(i).stampaMessaggio(mexPriv,utente);
+							}
+						}
 					}
+					else{
+						if(!input.equals(""))
+						{
+							for(int i=0;i<vett.size();i++)
+							{
+								vett.elementAt(i).stampaMessaggio(mexPriv,utente);
+							}						
+						}
+					}
+					
 					}catch (Exception e){
 					System.out.println("Errore 2");
 					}
