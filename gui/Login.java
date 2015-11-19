@@ -34,7 +34,7 @@ public class Login implements ActionListener
 		
 		JLabel lTitle = new JLabel("MultiChat");
 		lTitle.setFont(lTitle.getFont().deriveFont(23.0f));
-		llTitle.setBounds(57,10,250,25);
+		lTitle.setBounds(57,10,250,25);
 		p.add(lTitle);
 		
 		JLabel lUser = new JLabel("Username");
