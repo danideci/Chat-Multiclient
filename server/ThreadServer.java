@@ -11,7 +11,7 @@ class ThreadServer extends Thread
 	controlloNoReg nr = null;
 	controllaUtente cu =null;
 	FileElencoAccessi fea = null;
-	String messaggio;
+	String messaggio=null;
 	String input;
 	String utente;
 	String pass;
@@ -27,9 +27,20 @@ class ThreadServer extends Thread
 	{
 		try
 		{
+		fea = new FileElencoAccessi();
+		
 		myInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		myOutput = new PrintWriter(s.getOutputStream());
+<<<<<<< HEAD
 		messaggio=myInput.readLine();
+=======
+		myOutput.println("benvenuto");
+		myOutput.flush();
+		
+
+
+		messaggio = myInput.readLine();
+>>>>>>> origin/master
 		utente = myInput.readLine();
 		pass = myInput.readLine();
 		} catch(Exception e){
@@ -53,7 +64,7 @@ class ThreadServer extends Thread
 		if(messaggio.equals("login"))
 		{
 			cu = new controllaUtente(utente,pass);
-			if(ut.accesso() == true)
+			if(cu.accesso())
 			{
 				fea.scriviCon(utente);
 				myOutput.println("connesso");
