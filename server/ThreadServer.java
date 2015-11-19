@@ -28,19 +28,13 @@ class ThreadServer extends Thread
 		try
 		{
 		fea = new FileElencoAccessi();
-		
 		myInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		myOutput = new PrintWriter(s.getOutputStream());
-<<<<<<< HEAD
+		
 		messaggio=myInput.readLine();
-=======
 		myOutput.println("benvenuto");
 		myOutput.flush();
-		
-
-
 		messaggio = myInput.readLine();
->>>>>>> origin/master
 		utente = myInput.readLine();
 		pass = myInput.readLine();
 		} catch(Exception e){
@@ -83,7 +77,7 @@ class ThreadServer extends Thread
 		if(messaggio.equals("noReg"))
 		{
 			nr = new controlloNoReg(utente,pass,vett); 
-			if(ut.accesso()==true)
+			if(nr.accesso()==false)
 			{	
 				fea.scriviCon(utente);
 				myOutput.println("corretto");
