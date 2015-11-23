@@ -105,7 +105,7 @@ class ThreadServer extends Thread
 					{
 						String controllo;
 						String mexPriv;
-						controllo = st2.nextToken();
+						controllo = st2.nextToken();    //utente a cui mandare il messaggio
 						mexPriv = st2.nextToken();
 						for(i=0;i<vett.size();i++)
 						{
@@ -120,7 +120,7 @@ class ThreadServer extends Thread
 						{
 							for(int i=0;i<vett.size();i++)
 							{
-								vett.elementAt(i).stampaMessaggio(mexPriv,utente);
+								vett.elementAt(i).stampaMessaggio(input,utente);
 							}						
 						}
 					}
