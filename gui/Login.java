@@ -107,13 +107,19 @@ public class Login implements ActionListener
 				
 			}
 		}
-		else if(pulsante.equals("Subscribe"))
-		{
-			Subscribe sub = new Subscribe();
-		}
-		else if(pulsante.equals("UnknownUser"))
-		{
-			
+		else 
+		{	
+			if(pulsante.equals("Subscribe"))
+			{
+				Subscribe sub = new Subscribe();
+			}
+			else 
+			{	
+				if(pulsante.equals("UnknownUser"))
+				{
+					
+				}
+			}
 		}
 	}
 }
