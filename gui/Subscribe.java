@@ -8,11 +8,7 @@ import javax.swing.text.*;
 
 public class Subscribe implements ActionListener
 {
-	private JTextField f4;
-	private JTextField f1;
-	private TextField f2;
-	
-	public Subscribe()
+	public void actionPerformed(ActionEvent e) 
 	{
 		
 		//declarations
@@ -42,7 +38,7 @@ public class Subscribe implements ActionListener
 		l1.setBounds(10, 45, 80, 25);
 		p.add(l1);
 		
-		f1 = new JTextField();		
+		JTextField f1 = new JTextField();		
 		f1.setBounds(100, 45, 170, 25);
 		p.add(f1);
 		
@@ -50,7 +46,7 @@ public class Subscribe implements ActionListener
 		l2.setBounds(10, 80, 60, 25);
 		p.add(l2);
 		
-		f2 = new TextField();
+		TextField f2 = new TextField();
         f2.setEchoChar('*');		
 		f2.setBounds(100, 80, 170, 25);
 		p.add(f2);
@@ -68,7 +64,7 @@ public class Subscribe implements ActionListener
 		l4.setBounds(10, 150, 80, 25);
 		p.add(l4);
 		
-		f4 = new JTextField();		
+		JTextField f4 = new JTextField();		
 		f4.setBounds(100, 150, 170, 25);
 		p.add(f4);
 		
@@ -76,22 +72,13 @@ public class Subscribe implements ActionListener
 		b.setBounds(160,185,110,25);
 		p.add(b);
 		
-		
-			b.addActionListener(this);
-
+		if(passSubscribe == confirmPassSubscribe)
+		{
+			//b.addActionListener(new SubscribeListener(f1,f2,f4));
+		}
 		
 		f.setVisible(true);
 	}
-	
-	public void actionPerformed(ActionEvent e)
-	{
-		String pulsante = e.getActionCommand();
-		if(pulsante.equals("Subscribe"))
-		{
-			SubscribeListener sub = new SubscribeListener(f1,f2,f4);
-		}
-	}
-		
 }
 			
 			

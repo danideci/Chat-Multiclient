@@ -28,12 +28,14 @@ class ThreadServer extends Thread
 		try
 		{
 		fea = new FileElencoAccessi();
+		
 		myInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		myOutput = new PrintWriter(s.getOutputStream());
-		
-		messaggio=myInput.readLine();
 		myOutput.println("benvenuto");
 		myOutput.flush();
+		
+
+
 		messaggio = myInput.readLine();
 		utente = myInput.readLine();
 		pass = myInput.readLine();
@@ -77,7 +79,7 @@ class ThreadServer extends Thread
 		if(messaggio.equals("noReg"))
 		{
 			nr = new controlloNoReg(utente,pass,vett); 
-			if(nr.accesso()==false)
+			if(ut.accesso()==true)
 			{	
 				fea.scriviCon(utente);
 				myOutput.println("corretto");
@@ -100,31 +102,13 @@ class ThreadServer extends Thread
 					try
 					{
 					input = myInput.readLine();
-					StringTokenizer st2= new StringTokenizer(input,"+");
-					if(st2.nextToken().equals("@"))  //Stringa da decidere
+					if(!input.equals(""))
 					{
-						String controllo;
-						String mexPriv;
-						controllo = st2.nextToken();    //utente a cui mandare il messaggio
-						mexPriv = st2.nextToken();
-						for(i=0;i<vett.size();i++)
+						for(int i=0;i<vett.size();i++)
 						{
-							if(controllo.equals(vett[i].utente))
-							{
-								vett.elementAt(i).stampaMessaggio(mexPriv,utente);
-							}
-						}
+							vett.elementAt(i).stampaMessaggio(input,utente);
+						}						
 					}
-					else{
-						if(!input.equals(""))
-						{
-							for(int i=0;i<vett.size();i++)
-							{
-								vett.elementAt(i).stampaMessaggio(input,utente);
-							}						
-						}
-					}
-					
 					}catch (Exception e){
 					System.out.println("Errore 2");
 					}
