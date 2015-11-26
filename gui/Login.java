@@ -103,7 +103,7 @@ public class Login implements ActionListener, KeyListener
 		{
 			if(!(fUser.getText().equals("")||fPass.getText().equals("")))
 			{
-				LoginListener log = new LoginListener(fUser,fPass,s);
+				LoginListener log = new LoginListener(fUser,fPass,s,f);
 			}
 			else
 			{
@@ -148,7 +148,7 @@ public class Login implements ActionListener, KeyListener
 			}
 			else
 			{
-				LoginListener log = new LoginListener(fUser,fPass,s);
+				LoginListener log = new LoginListener(fUser,fPass,s,f);
 			}
 		}
 	}

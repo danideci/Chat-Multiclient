@@ -17,6 +17,7 @@ class ThreadServer extends Thread
 	String pass;
 	Vector<ThreadServer> vett;
 	int i;
+	private boolean control = false;
 	public ThreadServer (Socket s,Vector<ThreadServer> vett)
 	{
 		this.s = s;
@@ -26,75 +27,81 @@ class ThreadServer extends Thread
 	
 	public void run ()
 	{
-		try
-		{
-		fea = new FileElencoAccessi();
-		
+		try{
 		myInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		myOutput = new PrintWriter(s.getOutputStream());
+		
 		myOutput.println("benvenuto");
 		myOutput.flush();
 		
-
-
-		messaggio = myInput.readLine();
-		utente = myInput.readLine();
-		pass = myInput.readLine();
-		} catch(Exception e){
-		System.out.println("Errore 1");
-		}
-		if(messaggio.equals("registra"))
-		{	
-			ut = new controlloRegistrazione(utente,pass);
-			if(ut.accesso()==true)
-			{
-				myOutput.println("non registrato");
-				myOutput.flush();
-			}
-			else
-			{
-				myOutput.println("registrato");
-				myOutput.flush();
-				scriviRegistrazioni(utente,pass);
-			}
-		}
-		if(messaggio.equals("login"))
+		fea = new FileElencoAccessi();
+		}catch(Exception e){}
+		
+		while(!control)
 		{
-			cu = new controllaUtente(utente,pass);
-			if(cu.accesso())
+			try
 			{
-				fea.scriviCon(utente);
-				myOutput.println("connesso");
-				myOutput.flush();
-				//invio dei messaggi ad altri client
-				getMsg();
+
+			messaggio = myInput.readLine();
+			utente = myInput.readLine();
+			pass = myInput.readLine();
+			} catch(Exception e){
+			System.out.println("Errore 1");
 			}
-			else
+			if(messaggio.equals("registra"))
+			{	
+				ut = new controlloRegistrazione(utente,pass);
+				if(ut.accesso()==true)
+				{
+					myOutput.println("non registrato");
+					myOutput.flush();
+				}
+				else
+				{
+					myOutput.println("registrato");
+					myOutput.flush();
+					scriviRegistrazioni(utente,pass);
+				}
+			}
+			if(messaggio.equals("login"))
 			{
-				myOutput.println("non connesso");
-				myOutput.flush();
+				cu = new controllaUtente(utente,pass);
+				if(cu.accesso())
+				{
+					fea.scriviCon(utente);
+					myOutput.println("connesso");
+					myOutput.flush();
+					//invio dei messaggi ad altri client
+					control = true;
+				}
+				else
+				{
+					myOutput.println("non connesso");
+					myOutput.flush();
+				}
+				
 			}
 			
-		}
-		
-		if(messaggio.equals("noReg"))
-		{
-			nr = new controlloNoReg(utente,pass,vett); 
-			if(nr.accesso()==false)
-			{	
-				fea.scriviCon(utente);
-				myOutput.println("corretto");
-				myOutput.flush();
-				getMsg();
-			}
-			else	
+			if(messaggio.equals("noReg"))
 			{
-				myOutput.println("non corretto");
-				myOutput.flush();
+				nr = new controlloNoReg(utente,pass,vett); 
+				if(nr.accesso()==false)
+				{	
+					fea.scriviCon(utente);
+					myOutput.println("corretto");
+					myOutput.flush();
+					control = true;
+				}
+				else	
+				{
+					myOutput.println("non corretto");
+					myOutput.flush();
 
+				}
 			}
+
 		}
-		
+		getMsg();
 	}
 	public void getMsg()
 	{

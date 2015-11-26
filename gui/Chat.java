@@ -8,7 +8,7 @@ import javax.swing.text.*;
 
 public class Chat
 {
-	public static void main(String args[])
+	public Chat()
 	{
 		JFrame f = new JFrame("MultiChat");
 			//f.setTitle();

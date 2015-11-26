@@ -12,9 +12,11 @@ class LoginListener
 	private InputStreamReader sIn;
 	private BufferedReader ServerInput;
 	private PrintWriter ServerOutput;
+	private JFrame f;
 	
-	public LoginListener(TextField field1, TextField field2,Socket s)
+	public LoginListener(TextField field1, TextField field2,Socket s, JFrame f)
 	{
+		this.f = f;
 		getUsername = field1.getText();
 		getPassword = field2.getText();
 		try
@@ -33,8 +35,15 @@ class LoginListener
 			 String dio = ServerInput.readLine();
 			 if(dio.equals("connesso"))
 			 {
-				 field1.setText("");
+				 Chat ch = new Chat();
+				 f.setVisible(false);
 			 }
+			 else
+			 {
+				field1.setText("");
+				field2.setText("");
+			 }
+			 
 		}
 		catch (IOException e)
 		{
