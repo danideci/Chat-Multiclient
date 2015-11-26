@@ -38,7 +38,10 @@ class controllaUtente
 				{
 					return(true);
 				}
+				else
+				{
 				lettura = fIN.readLine();
+				}
 			}
 		}
 		catch(IOException e)

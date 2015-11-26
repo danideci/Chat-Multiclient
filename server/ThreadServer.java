@@ -16,6 +16,7 @@ class ThreadServer extends Thread
 	String utente;
 	String pass;
 	Vector<ThreadServer> vett;
+	int i;
 	public ThreadServer (Socket s,Vector<ThreadServer> vett)
 	{
 		this.s = s;
@@ -79,7 +80,7 @@ class ThreadServer extends Thread
 		if(messaggio.equals("noReg"))
 		{
 			nr = new controlloNoReg(utente,pass,vett); 
-			if(ut.accesso()==true)
+			if(nr.accesso()==false)
 			{	
 				fea.scriviCon(utente);
 				myOutput.println("corretto");
@@ -102,12 +103,29 @@ class ThreadServer extends Thread
 					try
 					{
 					input = myInput.readLine();
-					if(!input.equals(""))
+					StringTokenizer st2= new StringTokenizer(input,"+");
+					if(st2.nextToken().equals("@"))  //Stringa da decidere
 					{
-						for(int i=0;i<vett.size();i++)
+						String controllo;
+						String mexPriv;
+						controllo = st2.nextToken();    //utente a cui mandare il messaggio
+						mexPriv = st2.nextToken();
+						for(i=0;i<vett.size();i++)
 						{
-							vett.elementAt(i).stampaMessaggio(input,utente);
-						}						
+							if(controllo.equals(vett.elementAt(i).utente))
+							{
+								vett.elementAt(i).stampaMessaggio(mexPriv,utente);
+							}
+						}
+					}
+					else{
+						if(!input.equals(""))
+						{
+							for(int i=0;i<vett.size();i++)
+							{
+								vett.elementAt(i).stampaMessaggio(input,utente);
+							}						
+						}
 					}
 					}catch (Exception e){
 					System.out.println("Errore 2");
