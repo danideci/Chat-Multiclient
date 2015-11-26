@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 
-public class Login implements ActionListener
+public class Login implements ActionListener, KeyListener
 {
 	
 	private Socket s;
@@ -43,6 +43,7 @@ public class Login implements ActionListener
 		
 		fUser = new TextField();		
 		fUser.setBounds(80, 50, 135, 25);
+		fUser.addKeyListener(this);
 		p.add(fUser);
 		
 		JLabel lPass = new JLabel("Password");
@@ -52,19 +53,19 @@ public class Login implements ActionListener
 		fPass = new TextField();	
 		fPass.setEchoChar('*');		
 		fPass.setBounds(80, 85, 135, 25);
+		fPass.addKeyListener(this);
 		p.add(fPass);
 		
-		JButton bLogin = new JButton("login");
+		JButton bLogin = new JButton("Login");
 		bLogin.setBounds(133,120,80,25);
+		bLogin.addKeyListener(this);
 		p.add(bLogin);
 		
 		String LoginMessage = "<html><i>Inserire i dati</i></html>";
 		JLabel lMessage = new JLabel(LoginMessage);
 		lMessage.setBounds(10,120,250,25);
 		p.add(lMessage);
-		
-		
-			bLogin.addActionListener(this);
+		bLogin.addActionListener(this);
 		
 		
 		JButton bSub = new JButton("Subscribe");
@@ -96,7 +97,7 @@ public class Login implements ActionListener
 	{
 		String pulsante = e.getActionCommand();
 		
-		if(pulsante.equals("login"))
+		if(pulsante.equals("Login"))
 		{
 			if(!(fUser.getText().equals("")||fPass.getText().equals("")))
 			{
@@ -122,4 +123,32 @@ public class Login implements ActionListener
 			}
 		}
 	}
+	
+	
+	
+	public void keyTyped(KeyEvent ek)
+	{
+	}
+	
+	public void keyReleased(KeyEvent ek)
+	{
+	}
+	
+	public void keyPressed(KeyEvent ek)
+	{
+		int pulsante = ek.getKeyCode();
+		
+		if(pulsante==KeyEvent.VK_ENTER)
+		{
+			if (fPass.getText().equals(""))
+			{
+				fPass.requestFocus();
+			}
+			else
+			{
+				LoginListener log = new LoginListener(fUser,fPass,s);
+			}
+		}
+	}
+	
 }
