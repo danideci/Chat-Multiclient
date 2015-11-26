@@ -76,7 +76,8 @@ public class Login implements ActionListener, KeyListener
 		bSub.setBorderPainted(false);
 		bSub.setOpaque(false);
 		bSub.setBackground(Color.WHITE);
-		bSub.addActionListener(this);
+		//bSub.addActionListener(this);
+		bSub.addActionListener(new Subscribe());
 
 		JButton bNoSub = new JButton("UnkownUser");
 		bNoSub.setText("<HTML><FONT color=\"#000099\"><U>Enter without subscribe</A></U></FONT></HTML>");
@@ -86,7 +87,8 @@ public class Login implements ActionListener, KeyListener
 		bNoSub.setBorderPainted(false);
 		bNoSub.setOpaque(false);
 		bNoSub.setBackground(Color.WHITE);
-		bNoSub.addActionListener(this);
+		//bNoSub.addActionListener(this);
+		bNoSub.addActionListener(new setNickname());
 		
 		
 		
@@ -110,7 +112,7 @@ public class Login implements ActionListener, KeyListener
 		}
 		else 
 		{	
-			if(pulsante.equals("Subscribe"))
+			/*if(pulsante.equals("Subscribe"))
 			{
 				Subscribe sub = new Subscribe();
 			}
@@ -120,7 +122,7 @@ public class Login implements ActionListener, KeyListener
 				{
 					
 				}
-			}
+			}*/
 		}
 	}
 	
