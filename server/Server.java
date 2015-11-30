@@ -18,7 +18,6 @@ public class Server
 			while(true)
 			{
 				s = ss.accept();
-				System.out.println("ok");
 				th = new ThreadServer(s,vett);
 				vett.add(th);
 			}
