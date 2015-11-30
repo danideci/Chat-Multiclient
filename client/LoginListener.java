@@ -35,7 +35,7 @@ class LoginListener
 			 String dio = ServerInput.readLine();
 			 if(dio.equals("connesso"))
 			 {
-				 Chat ch = new Chat();
+				 Chat ch = new Chat(s);
 				 f.setVisible(false);
 			 }
 			 else

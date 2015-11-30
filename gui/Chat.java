@@ -16,9 +16,13 @@ public class Chat extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	private JTextArea taWrite;
+	private Socket s;
+	private GestioneMessaggi mess;
 	
-	public Chat() 
+	public Chat(Socket s) 
 	{
+		mess = new GestioneMessaggi(s);
+		this.s=s;
 		setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 		Border eBorder = BorderFactory.createEtchedBorder();
@@ -207,6 +211,7 @@ public class Chat extends JFrame implements ActionListener
 		//bEnter.setMinimumSize(new Dimension(pChat.getWidth()/6, 15));
 		bEnter.setBorder(BorderFactory.createTitledBorder(eBorder));
 		bEnter.setMaximumSize(new Dimension(150,100));
+		bEnter.addActionListener(this);
 		gbcChat.gridx = 2;
 		gbcChat.gridy = 2;
 		gbcChat.gridwidth = 1;
@@ -233,7 +238,7 @@ public class Chat extends JFrame implements ActionListener
 		{
 			if(!(taWrite.getText().equals("")))
 			{
-				//GestioneMessaggi mess = new GestioneMessagi(taWrite);
+				mess.sendMessage(taWrite.getText());
 			}
 			else
 			{
@@ -243,15 +248,16 @@ public class Chat extends JFrame implements ActionListener
 	}
 	
 	
-	public static void main(String[] args) 
+	/*public static void main(String[] args) 
 	{
         javax.swing.SwingUtilities.invokeLater(new Runnable() 
 		{ 
 			@Override
             public void run() 
 			{
-                Chat chat = new Chat();
+                Chat chat = new Chat(null);
             }
         });
     }
+	*/
 }
