@@ -1,7 +1,12 @@
-import java.net.*;
-import java.io.*;
-import java.awt.*;
-import javax.swing.*;
+import java.net.Socket;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.awt.TextField;
+import javax.swing.JFrame;
 import java.awt.event.*;
 
 class LoginListener 
@@ -32,10 +37,11 @@ class LoginListener
 			 ServerOutput.flush();
 			 ServerOutput.println(getPassword);
 			 ServerOutput.flush();
-			 String dio = ServerInput.readLine();
-			 if(dio.equals("connesso"))
+			 String risposta = ServerInput.readLine();
+			 if(risposta.equals("connesso"))
 			 {
 				 Chat ch = new Chat(s);
+				 FileWriter file = new FileWriter("UtentiSilenziati.txt");
 				 f.setVisible(false);
 			 }
 			 else
@@ -47,33 +53,8 @@ class LoginListener
 		}
 		catch (IOException e)
 		{
-			System.out.println("Errore nella creazione  degli stream");
+			e.printStackTrace();
 		}
 
 	}
-	
-	//public void actionPerformed(ActionEvent e)
-	 //{
-		 
-		 //Until the server sends the reply message, the client will enter an infinite cycle
-		 /*try
-		 {
-			 while ( !(ServerInput.readLine() == "connesso" || ServerInput.readLine() == "non connesso") )
-			 {}
-		 		 if (ServerInput.readLine() == "connesso")
-				{
-					JOptionPane.showMessageDialog(null, "Autenticazione effettuata. Accesso alla chat.", "Accesso Confermato", JOptionPane.INFORMATION_MESSAGE);
-					//Comando apertura interfaccia chat
-				}
-				 else
-				{
-					 JOptionPane.showMessageDialog(null, "Autenticazione fallita. I dati inseriti non sono corretti.", "Accesso negato", JOptionPane.WARNING_MESSAGE);
-					 getUsername.setText("");
-					 getPassword.setText("");
-				}
-		 }
-		 catch(IOException ex) 
-		 {}*/
-
-	 //}
 }
