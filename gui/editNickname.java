@@ -14,38 +14,42 @@ public class editNickname
 		//declarations
 		
 		JFrame f = new JFrame("Edit your Nickname");
-			f.setSize(290, 160);
-			f.setResizable(false);
-			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(290, 160);
+		f.setResizable(false);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel p = new JPanel();
-			f.add(p);
-			p.setLayout(null);
-			Container c = f.getContentPane();
-			c.add(p);
+		f.add(p);
+		p.setLayout(null);
+		Container c = f.getContentPane();
+		c.add(p);
 		String newNickname;
 		
-		//graphic new nickname
+		//Create title
 
-		JLabel l3 = new JLabel("Enter a new Nickname to display");
-			l3.setBounds(10,10,250,25);
-			p.add(l3);
+		JLabel lTitle = new JLabel("Enter a new Nickname to display");
+		lTitle.setBounds(10,10,250,25);
+		p.add(lTitle);
 
-		JLabel l1 = new JLabel("New Nickname");
-			l1.setBounds(10, 50, 110, 25);
-			p.add(l1);
+		//Create nickname label
 		
-		JTextField f1 = new JTextField();		
-			f1.setBounds(110, 50, 160, 25);
-			p.add(f1);
+		JLabel lNick = new JLabel("New Nickname");
+		lNick.setBounds(10, 50, 110, 25);
+		p.add(lNick);
+		
+		//Create nickname textfield
+		
+		JTextField fNick = new JTextField();		
+		fNick.setBounds(110, 50, 160, 25);
+		p.add(fNick);
 
-		//enter button 
+		//Create enter button 
 		
 		JButton b = new JButton("Enter");
-			b.setBounds(190,90,80,25);
-			p.add(b);
+		b.setBounds(190,90,80,25);
+		p.add(b);
 			
-			//b.addActionListener(new editNicknameListener(f1));
+		//b.addActionListener(new editNicknameListener(f1));
 			
-			f.setVisible(true);
+		f.setVisible(true);
 	}
 }

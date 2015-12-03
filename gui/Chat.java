@@ -12,17 +12,20 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-public class Chat extends JFrame implements ActionListener
+public class Chat extends JFrame implements ActionListener, KeyListener
 {
 	private static final long serialVersionUID = 1L;
 	private JTextArea taWrite;
+	private JScrollPane spWrite;
+	private JTextArea taChat;
+	private JScrollPane spChat;
 	private Socket s;
 	private GestioneMessaggi mess;
 	
 	public Chat(Socket s) 
 	{
-		mess = new GestioneMessaggi(s);
 		this.s=s;
+		mess = new GestioneMessaggi(s);
 		setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 		Border eBorder = BorderFactory.createEtchedBorder();
@@ -65,7 +68,7 @@ public class Chat extends JFrame implements ActionListener
 		//Create panelUser
 		
 		JPanel pUser = new JPanel();
-		pUser.setBorder(BorderFactory.createTitledBorder(eBorder));
+		//pUser.setBorder(BorderFactory.createTitledBorder(eBorder));
         gbc.gridx = 0;
 		gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -86,8 +89,8 @@ public class Chat extends JFrame implements ActionListener
 		
 		//Create JLabel Connected User
 	
-		JLabel lConnected = new JLabel("<html><font face='AR BERKLEY' size='5'>Connected User</font></html>");
-		lConnected.setBorder(BorderFactory.createTitledBorder(eBorder));
+		JLabel lConnected = new JLabel("<html><font size='5'>Connected User</font></html>");
+		//lConnected.setBorder(BorderFactory.createTitledBorder(eBorder));
 		gbcUser.gridx = 0;
 		gbcUser.gridy = 0;
 		gbc.gridwidth = 1;
@@ -102,7 +105,7 @@ public class Chat extends JFrame implements ActionListener
 		//Create JTextArea Connected User
 		
 		JTextArea taUser = new JTextArea();
-		taUser.setBorder(BorderFactory.createTitledBorder(eBorder));
+		//taUser.setBorder(BorderFactory.createTitledBorder(eBorder));
         gbcUser.gridx = 0;
         gbcUser.gridy = 1;
         gbcUser.weightx = 100;
@@ -114,7 +117,7 @@ public class Chat extends JFrame implements ActionListener
 		//Create panelChat
 		
 		JPanel pChat = new JPanel();
-		pChat.setBorder(BorderFactory.createTitledBorder(eBorder));
+		//pChat.setBorder(BorderFactory.createTitledBorder(eBorder));
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -129,8 +132,8 @@ public class Chat extends JFrame implements ActionListener
 		
 		//Create title
 		
-		JLabel lTitle = new JLabel("<html><font face='AR BERKLEY' size='5'>MultiChat</font></html>");
-		lTitle.setBorder(BorderFactory.createTitledBorder(eBorder));
+		JLabel lTitle = new JLabel("<html><font size='5'>MultiChat</font></html>");
+		//lTitle.setBorder(BorderFactory.createTitledBorder(eBorder));
 		gbcChat.gridx = 0;
 		gbcChat.gridy = 0;
 		gbcChat.gridwidth = 2;
@@ -145,7 +148,7 @@ public class Chat extends JFrame implements ActionListener
 		//Create attached button
 		
 		JButton bAttached = new JButton("Attached");
-		bAttached.setBorder(BorderFactory.createTitledBorder(eBorder));
+		//bAttached.setBorder(BorderFactory.createTitledBorder(eBorder));
 		bAttached.setMaximumSize(new Dimension(150,100));
 		gbcChat.gridx = 2;
 		gbcChat.gridy = 0;
@@ -158,8 +161,12 @@ public class Chat extends JFrame implements ActionListener
 		
 		//Create chat area
 		
-		JTextArea taChat = new JTextArea("");
-		taChat.setBorder(BorderFactory.createTitledBorder(eBorder));
+		taChat = new JTextArea("");
+		spChat = new JScrollPane(taChat);
+		spChat.setPreferredSize(new Dimension(pChat.getWidth(), 15));
+		spChat.setMinimumSize(new Dimension(pChat.getWidth(), 15));
+		taChat.setLineWrap(true);
+		//taChat.setBorder(BorderFactory.createTitledBorder(eBorder));
 		gbcChat.gridx = 0;
 		gbcChat.gridy = 1;
 		gbcChat.gridwidth = 3;
@@ -168,12 +175,12 @@ public class Chat extends JFrame implements ActionListener
 		gbcChat.weighty = 89;
 		gbcChat.insets = new Insets(5,5,5,5);
 		taChat.setEditable(false);
-        pChat.add(taChat, gbcChat);
+        pChat.add(spChat, gbcChat);
 		
 		//Create emot button
 		
 		JButton bEmot = new JButton("Emot");
-		bEmot.setBorder(BorderFactory.createTitledBorder(eBorder));
+		//bEmot.setBorder(BorderFactory.createTitledBorder(eBorder));
 		//bEmot.setPreferredSize(new Dimension(pChat.getWidth()/6, 15));
 		//bEmot.setMinimumSize(new Dimension(pChat.getWidth()/6, 15));
 		bEmot.setMaximumSize(new Dimension(150,100));
@@ -189,12 +196,12 @@ public class Chat extends JFrame implements ActionListener
 		//Create field of writing 
 		
 		taWrite = new JTextArea("");
-		JScrollPane spWrite = new JScrollPane(taWrite);
+		spWrite = new JScrollPane(taWrite);
 		spWrite.setPreferredSize(new Dimension(pChat.getWidth()*(4/6), 15));
 		spWrite.setMinimumSize(new Dimension(pChat.getWidth()*(4/6), 15));
 		taWrite.setLineWrap(true);
 		//taWrite.setLineWrapWord(true);
-		spWrite.setBorder(BorderFactory.createTitledBorder(eBorder));
+		//spWrite.setBorder(BorderFactory.createTitledBorder(eBorder));
 		gbcChat.gridx = 1;
 		gbcChat.gridy = 2;
 		gbcChat.gridwidth = 1;
@@ -202,6 +209,7 @@ public class Chat extends JFrame implements ActionListener
         gbcChat.weightx = 80;
 		gbcChat.weighty = 7;
 		gbcChat.insets = new Insets(5,5,5,5);
+		taWrite.addKeyListener(this);
         pChat.add(spWrite, gbcChat);
 		
 		//Create enter button
@@ -209,7 +217,7 @@ public class Chat extends JFrame implements ActionListener
 		JButton bEnter = new JButton("Enter");
 		//bEnter.setPreferredSize(new Dimension(pChat.getWidth()/6, 15));
 		//bEnter.setMinimumSize(new Dimension(pChat.getWidth()/6, 15));
-		bEnter.setBorder(BorderFactory.createTitledBorder(eBorder));
+		//bEnter.setBorder(BorderFactory.createTitledBorder(eBorder));
 		bEnter.setMaximumSize(new Dimension(150,100));
 		bEnter.addActionListener(this);
 		gbcChat.gridx = 2;
@@ -228,6 +236,12 @@ public class Chat extends JFrame implements ActionListener
 		setMinimumSize(new Dimension(640, 480));
 		setVisible(true);
         pack();
+		
+		
+		RiceviMessaggi rc = new RiceviMessaggi(s,taChat);
+		rc.start();
+		
+		
 	}
 	
 	public void actionPerformed(ActionEvent e)
@@ -238,7 +252,7 @@ public class Chat extends JFrame implements ActionListener
 		{
 			if(!(taWrite.getText().equals("")))
 			{
-				mess.sendMessage(taWrite.getText());
+				mess.sendMessage(taWrite.getText(), taWrite);
 			}
 			else
 			{
@@ -260,4 +274,29 @@ public class Chat extends JFrame implements ActionListener
         });
     }
 	*/
+	
+	public void keyTyped(KeyEvent ek)
+	{
+	}
+	
+	public void keyReleased(KeyEvent ek)
+	{
+	}
+	
+	public void keyPressed(KeyEvent ek)
+	{
+		int pulsante = ek.getKeyCode();
+		
+		if(pulsante==KeyEvent.VK_ENTER)
+		{
+			if (!(taWrite.getText().equals("")))
+			{
+				mess.sendMessage(taWrite.getText(), taWrite);
+			}
+			else
+			{
+				taWrite.requestFocus();
+			}
+		}
+	}
 }

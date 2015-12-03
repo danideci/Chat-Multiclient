@@ -18,6 +18,7 @@ public class Login implements ActionListener, KeyListener
 	{
 		
 		//declarations
+		
 		this.s=s;
 		f = new JFrame("Login");
 		f.setSize(230,250);
@@ -30,25 +31,33 @@ public class Login implements ActionListener, KeyListener
 		Container c = f.getContentPane();
 		c.add(p);
 		
-		//setting graphics
+		//Create title label
 		
 		JLabel lTitle = new JLabel("MultiChat");
 		lTitle.setFont(lTitle.getFont().deriveFont(23.0f));
 		lTitle.setBounds(57,10,250,25);
 		p.add(lTitle);
 		
+		//Create user label
+		
 		JLabel lUser = new JLabel("Username");
 		lUser.setBounds(10, 50, 60, 25);
 		p.add(lUser);
+		
+		//Create user textfield
 		
 		fUser = new TextField();		
 		fUser.setBounds(80, 50, 135, 25);
 		fUser.addKeyListener(this);
 		p.add(fUser);
 		
+		//Create password label
+		
 		JLabel lPass = new JLabel("Password");
 		lPass.setBounds(10, 85, 60, 25);
 		p.add(lPass);
+		
+		//Create password textfield
 		
 		fPass = new TextField();	
 		fPass.setEchoChar('*');		
@@ -56,10 +65,14 @@ public class Login implements ActionListener, KeyListener
 		fPass.addKeyListener(this);
 		p.add(fPass);
 		
+		//Create login button
+		
 		JButton bLogin = new JButton("Login");
 		bLogin.setBounds(133,120,80,25);
 		bLogin.addKeyListener(this);
 		p.add(bLogin);
+		
+		//Create message label
 		
 		String LoginMessage = "<html><i>Inserire i dati</i></html>";
 		JLabel lMessage = new JLabel(LoginMessage);
@@ -67,6 +80,7 @@ public class Login implements ActionListener, KeyListener
 		p.add(lMessage);
 		bLogin.addActionListener(this);
 		
+		//Create subscribe button
 		
 		JButton bSub = new JButton("Subscribe");
 		bSub.setText("<HTML><FONT color=\"#000099\"><U>Aren't you subscribed? Click here!</U></FONT></HTML>");
@@ -79,6 +93,8 @@ public class Login implements ActionListener, KeyListener
 		//bSub.addActionListener(this);
 		bSub.addActionListener(new Subscribe());
 
+		//Create button to enter without subscribe
+		
 		JButton bNoSub = new JButton("UnkownUser");
 		bNoSub.setText("<HTML><FONT color=\"#000099\"><U>Enter without subscribe</A></U></FONT></HTML>");
 		bNoSub.setBounds(-33,180,220,25);
@@ -89,8 +105,6 @@ public class Login implements ActionListener, KeyListener
 		bNoSub.setBackground(Color.WHITE);
 		//bNoSub.addActionListener(this);
 		bNoSub.addActionListener(new setNickname());
-		
-		
 		
 		f.setVisible(true);
 	}

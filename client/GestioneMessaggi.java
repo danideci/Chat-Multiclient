@@ -11,15 +11,16 @@ public class GestioneMessaggi
 	private InputStreamReader sIn;
 	private BufferedReader ServerInput;
 	private PrintWriter ServerOutput;
+	private JTextArea taWrite;
 	
 	public GestioneMessaggi(Socket s)
-	{
-		
+	{	
 		this.s = s;
 	}
 	
-	public void sendMessage(String messaggio)
+	public void sendMessage(String messaggio, JTextArea taWrite)
 	{
+		this.taWrite = taWrite;
 		try
 		{
 			sIn = new InputStreamReader(s.getInputStream());					
@@ -27,6 +28,7 @@ public class GestioneMessaggi
 			ServerOutput = new PrintWriter(s.getOutputStream());
 			ServerOutput.println(messaggio);
 			System.out.println(messaggio);
+			taWrite.setText("");
 			ServerOutput.flush();
 		}
 		catch(IOException e)

@@ -73,10 +73,6 @@ class ThreadServer extends Thread
 					myOutput.flush();
 					//invio dei messaggi ad altri client
 					control = true;
-					myOutput.println("****user "+utente + " si è connesso");
-					myOutput.flush();
-					myOutput.println(utente + " si è connesso");
-					myOutput.flush();
 				}
 				else
 				{
@@ -95,16 +91,12 @@ class ThreadServer extends Thread
 					myOutput.println("corretto");
 					myOutput.flush();
 					control = true;
-					myOutput.println("****user "+utente + " si è connesso");
-					myOutput.flush();
-					myOutput.println(utente + " si è connesso");
-					myOutput.flush();
 				}
 				else	
 				{
 					myOutput.println("non corretto");
 					myOutput.flush();
-					
+
 				}
 			}
 
@@ -133,20 +125,8 @@ class ThreadServer extends Thread
 							}
 						}
 					}
-					else if(st2.nextToken().equals("logout")) //Stringa da decidere 
-						{
-						  for(int i=0;i<vett.size();i++)
-							{
-								this.logout(utente);
-							}	
-						}
-					else if(st2.nextToken().equals("cambiaNome"))
-					{
-						//Implementazione
-						
-					}
-					
-					else if(!input.equals(""))
+					else{
+						if(!input.equals(""))
 						{
 							for(int i=0;i<vett.size();i++)
 							{
@@ -193,12 +173,5 @@ class ThreadServer extends Thread
 		{
 			System.out.println("Errore nella scrittura della registrazione");
 		}
-	}
-	public void logout(String utente)
-	{
-		myOutput.println("****user "+utente + " si è disconnesso");
-		myOutput.flush();
-		myOutput.println(utente + "si è disconnesso");
-		myOutput.flush();
 	}
 }
