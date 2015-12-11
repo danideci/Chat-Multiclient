@@ -10,7 +10,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
  class PrivateAllegati
  {
-    private FileFilter filtro;
 	private JFileChooser allegato;
 	private FileInputStream inFile;
 	private BufferedInputStream inFileStream;
@@ -37,7 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 			{
 			  f = allegato.getSelectedFile();
 			  //Creates a byte array of size dependant to size of the file to send
-			  mybytearray = new byte [(long)f.length()];
+			  mybytearray = new byte [(int)f.length()];
 			  
 			  //Creates the input's streams from the file
 			  inFile = new FileInputStream(f);
@@ -54,9 +53,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	  
 	  try
 	  {
+		 //This code is to make the server know that a file is going to be sent
+		 ServerOutput.println("4");
+		 ServerOutput.flush();
+		  
 		 //Sends to the server the name of the user to send the file to and file's size
 		 ServerOutput.println(username);
-		 ServerOutput.println((long)(f.length()));
+		 ServerOutput.println((int)(f.length()));
 		 
 		 //Cleans and closes the stream
 		 ServerOutput.flush(); 
@@ -74,10 +77,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		  ex.printStackTrace();
 	  }
 	}
-}
+
       
   private void setFilters()
   {
+	 FileFilter filtro;
 	 //This method is used to set the filters when searching for the file to send in the user's computer
      filtro = new FileNameExtensionFilter("File TXT", "txt");
      allegato.addChoosableFileFilter(filtro);
@@ -86,3 +90,4 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	 filtro = new FileNameExtensionFilter("File MP4", "mp4");
      allegato.addChoosableFileFilter(filtro);
   }
+ }
