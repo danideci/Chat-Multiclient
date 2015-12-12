@@ -50,7 +50,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	  try
 	  {
 		 //This code is to make the server know that a file is going to be sent
-		 ServerOutput.println("4");
+		 ServerOutput.println("3");
 		 ServerOutput.flush(); 
 		  
 		 //Tells the server to send the file to everyone actually connected to the chat by sending a particular string 

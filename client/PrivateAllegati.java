@@ -54,7 +54,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	  try
 	  {
 		 //This code is to make the server know that a file is going to be sent
-		 ServerOutput.println("4");
+		 ServerOutput.println("3");
 		 ServerOutput.flush();
 		  
 		 //Sends to the server the name of the user to send the file to and file's size
