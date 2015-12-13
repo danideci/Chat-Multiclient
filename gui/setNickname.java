@@ -6,14 +6,22 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 
-public class setNickname implements ActionListener
+public class setNickname implements ActionListener, KeyListener
 {
-	public void actionPerformed(ActionEvent e)  
+	private Socket s;
+	private TextField fNick;
+	private JFrame f;
+	private JButton b;
+
+	
+	public setNickname(Socket s)
 	{
+		this.s = s;
+
 		
 		//declarations
 		
-		JFrame f = new JFrame("Edit your Nickname");
+		f = new JFrame("Edit your Nickname");
 		f.setSize(290, 160);
 		f.setResizable(false);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,23 +41,61 @@ public class setNickname implements ActionListener
 		//Create nickname label
 		
 		JLabel lNick = new JLabel("Nickname");
-		lNick.setBounds(10, 50, 110, 25);
+		lNick.setBounds(10, 50, 95, 25);
 		p.add(lNick);
 		
 		//Create nickname textfield
 		
-		JTextField fNick = new JTextField();		
+		fNick = new TextField();		
 		fNick.setBounds(110, 50, 160, 25);
+		fNick.addKeyListener(this);
 		p.add(fNick);
 
 		//Create enter button 
 		
-		JButton b = new JButton("Enter");
+		b = new JButton("Enter");
 		b.setBounds(190,90,80,25);
 		p.add(b);
 			
-		//b.addActionListener(new editNicknameListener(f1));
+		b.addActionListener(this);
+		b.addKeyListener(this);
 			
 		f.setVisible(true);
 	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		String nick = fNick.getText();
+		if(!(nick.equals("")))
+		{
+			setNicknameListener lnickname = new setNicknameListener(nick, s, f);
+		}
+	}
+	
+	public void keyTyped(KeyEvent ek)
+	{
+	}
+	
+	public void keyReleased(KeyEvent ek)
+	{
+	}
+	
+	public void keyPressed(KeyEvent ek)
+	{
+		int pulsante = ek.getKeyCode();
+		String nick = fNick.getText();
+		
+		if(pulsante==KeyEvent.VK_ENTER)
+		{
+			if(!(nick.equals("")))
+			{
+				setNicknameListener lnickname = new setNicknameListener(nick, s, f);
+			}
+			else
+			{
+				
+			}
+		}
+	}
+	
 }

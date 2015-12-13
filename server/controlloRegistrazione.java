@@ -5,12 +5,10 @@ class controlloRegistrazione
 {
 	
 	String utente;
-	String pass;
 	
-	public controlloRegistrazione(String utente, String pass)
+	public controlloRegistrazione(String utente)
 	{
 		this.utente = utente;
-		this.pass = pass;
 	}
 	
 	public boolean accesso()
@@ -18,6 +16,7 @@ class controlloRegistrazione
 		String lettura;
 		BufferedReader fIN = null;
 		StringTokenizer t;
+		StringTokenizer ss;
 		
 		try
 		{
@@ -30,15 +29,15 @@ class controlloRegistrazione
 		
 		try
 		{
-			lettura = fIN.readLine();
-			while(lettura != null)
+			t = new StringTokenizer(fIN.readLine(),"/");
+			while(t.hasMoreTokens())
 			{
-				t = new StringTokenizer(lettura," / ");
-				if(t.nextToken().equals(utente))
+				
+				ss = new StringTokenizer(t.nextToken(),"+");
+				if(ss.nextToken().equals(utente))
 				{
 					return(true);
 				}
-				lettura = fIN.readLine();
 			}
 		}
 		catch(IOException e)

@@ -6,60 +6,49 @@ import java.net.*;
 
  
 
-class SubscribeListener implements ActionListener
-{						
-
-	private InputStreamReader sIn = new InputStreamReader(System.in);
-	private BufferedReader ServerInput = new BufferedReader(sIn);								
-	private	String Username;
-	private	String Password;
-	private	String Nickname;
+class SubscribeListener
+{												
+	private	String user;
+	private	String pass;
+	private Socket s;
+	private PrintWriter out;
+	private BufferedReader in;
 	
-	public SubscribeListener(TextField fi, TextField fi2, TextField fi3)
+	public SubscribeListener(String user, String pass, Socket s)
 	{
-		//Converto in testo il contenuto del campo JTextField
-		Username = fi.getText();
-		//Converto in testo il contenuto del campo JTextField
-		Password = fi2.getText();
-		//Converto in testo il contenuto del campo JTextField
-		Nickname = fi3.getText();
-	}
-	
-	public void actionPerformed(ActionEvent e)
-	{
+		this.user=user;
+		this.pass=pass;
+		this.s=s;
 		try
 		{
-			//Creazione socket
-			Socket s = new Socket("localhost",1234);
-			PrintWriter ServerOutput = new PrintWriter(s.getOutputStream());
-			//Creazione Stringa di Controllo per Server
-			String Controllo = "registra";
-			//Invio di dati
-			ServerOutput.println(Controllo);
-			ServerOutput.flush();
-			ServerOutput.println(Username);
-			ServerOutput.flush();
-			ServerOutput.println(Password);
-			ServerOutput.flush();
-			ServerOutput.println(Nickname);
-			ServerOutput.flush();
+			out = new PrintWriter(s.getOutputStream());
+			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+		}
+		catch(Exception e){}
+	}
+	public boolean controlReg()
+	{
+			out.println("2");
+			out.flush();
+			out.println(user);
+			out.flush();
+			out.println(pass);
+			out.flush();
+			String ing = null;
 			try
 			{
-			while (!(ServerInput.readLine() == "registrato" || ServerInput.readLine() == "non registrato"))
-			{
+				ing = in.readLine();
 			}
-			if(ServerInput.readLine() == "registrato")
+			catch(Exception exxx){}
+
+			if(ing.equals("registrato"))
 			{
-				JOptionPane.showMessageDialog(null, "Registrazione effettuata.", "Registrazione Confermata",JOptionPane.INFORMATION_MESSAGE);
-				login.main();
+				return(true);
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(null, "Errore", "Accesso negato",JOptionPane.ERROR_MESSAGE);
-				//Comando per pulire i campi
+				return(false);
 			}
-			}catch(Exception ex2){}
-		}
-		catch(Exception ex){}
+
 	}
 }

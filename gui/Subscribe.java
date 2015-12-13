@@ -6,14 +6,22 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 
-public class Subscribe implements ActionListener
+public class Subscribe implements ActionListener, KeyListener
 {
-	public void actionPerformed(ActionEvent e) 
+	private Socket s;
+	private JFrame frameLog;
+	private JFrame f;
+	private TextField fUser;
+	private TextField fPass;
+	private TextField fConf;
+	
+	public Subscribe(Socket s, JFrame fLog)
 	{
-		
+		this.s=s;
+		frameLog=fLog;
 		//declarations
 		
-		JFrame f = new JFrame("Subscribe");
+		f = new JFrame("Subscribe");
 		f.setSize(287, 260);
 		f.setResizable(false);
 		JPanel p = new JPanel();
@@ -38,39 +46,134 @@ public class Subscribe implements ActionListener
 		lUser.setBounds(10, 45, 80, 25);
 		p.add(lUser);
 		
-		JTextField fUser = new JTextField();		
+		fUser = new TextField();		
 		fUser.setBounds(100, 45, 170, 25);
+		fUser.addKeyListener(this);
 		p.add(fUser);
 		
 		JLabel lPass = new JLabel("Password");
 		lPass.setBounds(10, 80, 60, 25);
 		p.add(lPass);
 		
-		TextField fPass = new TextField();
+		fPass = new TextField();
         fPass.setEchoChar('*');		
 		fPass.setBounds(100, 80, 170, 25);
+		fPass.addKeyListener(this);
 		p.add(fPass);
 		
 		JLabel lConf = new JLabel("<html>Confirm<br>password</html>");
 		lConf.setBounds(10, 115, 60, 30);
 		p.add(lConf);
 		
-		TextField fConf = new TextField();
+		fConf = new TextField();
         fConf.setEchoChar('*');		
 		fConf.setBounds(100, 115, 170, 25);
+		fConf.addKeyListener(this);
 		p.add(fConf);
 		
 		JButton bSub = new JButton("Subscribe");
 		bSub.setBounds(160,185,110,25);
 		p.add(bSub);
 		
-		if(passSubscribe == confirmPassSubscribe)
-		{
-			//b.addActionListener(new SubscribeListener(fUser,fPass));
-		}
+
+		bSub.addActionListener(this);
+		bSub.addKeyListener(this);
+
 		
 		f.setVisible(true);
 	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		String pss = fPass.getText();
+		String pss2 = fConf.getText();
+		String uss = fUser.getText();
+		if(pss.equals(pss2)&&!(fPass.getText().equals("")))
+		{
+			SubscribeListener sub = new SubscribeListener(uss,pss,s);
+			if(sub.controlReg())
+			{
+				frameLog.setVisible(true);
+				f.setVisible(false);
+			}
+			else
+			{
+				
+			}
+		}
+		else
+		{
+			fPass.setText("");
+			fConf.setText("");
+		}
+		
+		
+	}
+	
+	public void keyTyped(KeyEvent ek)
+	{
+	}
+	
+	public void keyReleased(KeyEvent ek)
+	{
+	}
+	
+	public void keyPressed(KeyEvent ek)
+	{
+		int pulsante = ek.getKeyCode();
+		String pss = fPass.getText();
+		String pss2 = fConf.getText();
+		String uss = fUser.getText();
+		
+		if(pulsante==KeyEvent.VK_ENTER)
+		{
+			
+			if(pss.equals(pss2)&&!(fPass.getText().equals("")))
+			{
+				SubscribeListener sub = new SubscribeListener(uss,pss,s);
+				if(sub.controlReg())
+				{
+					frameLog.setVisible(true);
+					f.setVisible(false);
+				}
+				else
+				{
+					
+				}
+			}
+			else
+			{
+				if(fUser.getText().equals(""))
+				{
+					fUser.requestFocus();
+				}
+				else
+				{
+					if(fPass.getText().equals(""))
+					{
+						fPass.requestFocus();
+					}
+					else
+					{
+						if(fConf.getText().equals(""))
+						{
+							fConf.requestFocus();
+						}
+						else
+						{
+							fPass.setText("");
+							fConf.setText("");
+							fPass.requestFocus();
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
 }
+			
 			
 			

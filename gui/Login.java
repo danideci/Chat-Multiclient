@@ -23,6 +23,7 @@ public class Login implements ActionListener, KeyListener
 		f = new JFrame("Login");
 		f.setSize(230,250);
 		f.setLocation(250,250);
+		f.setLocationRelativeTo(null);
 		f.setResizable(false);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel p = new JPanel();
@@ -74,7 +75,7 @@ public class Login implements ActionListener, KeyListener
 		
 		//Create message label
 		
-		String LoginMessage = "<html><i>Inserire i dati</i></html>";
+		String LoginMessage = "<html><i>Insert your data</i></html>";
 		JLabel lMessage = new JLabel(LoginMessage);
 		lMessage.setBounds(10,120,250,25);
 		p.add(lMessage);
@@ -91,7 +92,7 @@ public class Login implements ActionListener, KeyListener
 		bSub.setOpaque(false);
 		bSub.setBackground(Color.WHITE);
 		//bSub.addActionListener(this);
-		bSub.addActionListener(new Subscribe());
+		bSub.addActionListener(this);
 
 		//Create button to enter without subscribe
 		
@@ -104,7 +105,7 @@ public class Login implements ActionListener, KeyListener
 		bNoSub.setOpaque(false);
 		bNoSub.setBackground(Color.WHITE);
 		//bNoSub.addActionListener(this);
-		bNoSub.addActionListener(new setNickname());
+		bNoSub.addActionListener(this);
 		
 		f.setVisible(true);
 	}
@@ -119,24 +120,18 @@ public class Login implements ActionListener, KeyListener
 			{
 				LoginListener log = new LoginListener(fUser,fPass,s,f);
 			}
-			else
-			{
-				
-			}
+
 		}
-		else 
+		else if(pulsante.equals("<HTML><FONT color=\"#000099\"><U>Aren't you subscribed? Click here!</U></FONT></HTML>"))
 		{	
-			/*if(pulsante.equals("Subscribe"))
-			{
-				Subscribe sub = new Subscribe();
-			}
-			else 
-			{	
-				if(pulsante.equals("UnknownUser"))
-				{
-					
-				}
-			}*/
+			Subscribe sub = new Subscribe(s,f);
+			f.setVisible(false);
+
+		}
+		else if(pulsante.equals("<HTML><FONT color=\"#000099\"><U>Enter without subscribe</A></U></FONT></HTML>"))
+		{
+			setNickname unk = new setNickname(s);
+			f.setVisible(false);
 		}
 	}
 	

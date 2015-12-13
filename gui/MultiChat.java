@@ -21,6 +21,7 @@ public class MultiChat implements ActionListener, KeyListener
 		f = new JFrame("Welcome in MultiChat");
 			f.setSize(280, 190);
 			f.setResizable(false);
+f.setLocationRelativeTo(null);
 			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 		JPanel p = new JPanel();

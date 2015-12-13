@@ -18,6 +18,7 @@ class controllaUtente
 		String lettura;
 		BufferedReader fIN = null;
 		StringTokenizer t;
+		StringTokenizer ss;
 		
 		try
 		{
@@ -30,17 +31,14 @@ class controllaUtente
 		
 		try
 		{
-			lettura = fIN.readLine();
-			while(lettura != null)
+			t = new StringTokenizer(fIN.readLine(),"/");
+			while(t.hasMoreTokens())
 			{
-				t = new StringTokenizer(lettura," / ");
-				if(t.nextToken().equals(utente) && t.nextToken().equals(pass))
+				
+				ss = new StringTokenizer(t.nextToken(),"+");
+				if(ss.nextToken().equals(utente) && ss.nextToken().equals(pass))
 				{
 					return(true);
-				}
-				else
-				{
-				lettura = fIN.readLine();
 				}
 			}
 		}

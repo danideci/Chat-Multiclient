@@ -23,7 +23,7 @@ class LoginListener
 	{
 		this.f = f;
 		getUsername = field1.getText();
-		getPassword = field2.getText(); 
+		getPassword = field2.getText();
 		try
 		{
 			//Creation of the server's input stream 
@@ -31,13 +31,13 @@ class LoginListener
 			ServerInput = new BufferedReader(sIn);		
 			//Creation of the output stream to the server
 			ServerOutput = new PrintWriter(s.getOutputStream());
-			ServerOutput.println("1");
-			ServerOutput.flush();
-			ServerOutput.println(getUsername);
-			ServerOutput.flush();
-			ServerOutput.println(getPassword);
-			ServerOutput.flush();
-			String risposta = ServerInput.readLine();
+			ServerOutput.println("1"); //login
+			 ServerOutput.flush();
+			 ServerOutput.println(getUsername);
+			 ServerOutput.flush();
+			 ServerOutput.println(getPassword);
+			 ServerOutput.flush();
+			 String risposta = ServerInput.readLine();
 			 if(risposta.equals("connesso"))
 			 {
 				 Chat ch = new Chat(s);

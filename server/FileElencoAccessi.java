@@ -28,8 +28,10 @@ class FileElencoAccessi
 		
 	}
 	
-	public void scriviDiscon()
+	public void scriviDiscon(String utente)
 	{
+		
+		this.utente= utente;
 		try
 		{
 			FileWriter fAcc =new FileWriter ("accessi.txt",true);

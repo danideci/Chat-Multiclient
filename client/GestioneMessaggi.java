@@ -20,16 +20,19 @@ public class GestioneMessaggi
 	
 	public void sendMessage(String messaggio, JTextArea taWrite)
 	{
+		this.messaggio=messaggio;
 		this.taWrite = taWrite;
 		try
 		{
-			sIn = new InputStreamReader(s.getInputStream());					
-			ServerInput = new BufferedReader(sIn);		
+			//sIn = new InputStreamReader(s.getInputStream());					
+			//ServerInput = new BufferedReader(sIn);		
 			ServerOutput = new PrintWriter(s.getOutputStream());
-			ServerOutput.println(messaggio);
-			System.out.println(messaggio);
-			taWrite.setText("");
+			ServerOutput.println("1");
 			ServerOutput.flush();
+			ServerOutput.println(messaggio);
+			ServerOutput.flush();
+			taWrite.setText("");
+
 		}
 		catch(IOException e)
 		{

@@ -1,60 +1,49 @@
+import java.net.*;
+import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
-import java.net.*;
+import javax.swing.event.*;
+import javax.swing.text.*;
+import java.util.*;
 
-//class connetti
-
-
-class setNicknameListener implements ActionListener
+class setNicknameListener
 {						
 
-	private InputStreamReader sIn = new InputStreamReader(System.in);
-	private BufferedReader ServerInput = new BufferedReader(sIn);								
-	private	int Port;
-	private	String IP = null;
+	private	String user = null;
+	private Socket s;
+	private BufferedReader in = null;
+	private PrintWriter out = null;
+	private JFrame f;
 	
-	public serverPortListener(TextField fi,TextField fi2)
+	public setNicknameListener(String user, Socket s, JFrame f)
 	{
-		//Converto in intero il contenuto del campo JTextField
-		Port = Integer.parseInt(fi2.getText());
-		//Converto in testo il contenuto del campo JTextField
-		IP = fi.getText();
-	}
-	
-	public void actionPerformed(ActionEvent e)
-	{
+		this.user = user;
+		this.s = s;
+		this.f=f;
+		
 		try
 		{
-			//Creazione socket
-	
-			Socket s = new Socket(IP,Port);
-			PrintWriter ServerOutput = new PrintWriter(s.getOutputStream());
-			ServerOutput.println("noReg");
-			ServerOutput.flush();
-			ServerOutput.println(IP);
-			ServerOutput.flush();	
-			ServerOutput.println(Port);
-			ServerOutput.flush();
+			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			out = new PrintWriter(s.getOutputStream());
 			
-			while (!((ServerInput.readLine() == "corretto") || (ServerInput.readLine() == "non corretto")))
-			{}
+			out.println("3");
+			out.flush();
+			out.println(user);
+			out.flush();	
+			out.println("password");
+			out.flush();	
 	   
-			if(ServerInput.readLine() == "corretto")
+			if(in.readLine().equals("corretto"))
 			{
 			
-		   
-				 JOptionPane.showMessageDialog(null, "Accesso alla chat.", "Accesso Confermato", JOptionPane.INFORMATION_MESSAGE);
-
-
-				//comando aprire la chat
+				Chat ch = new Chat(s);
+				f.setVisible(false);
 		  
 			}
-			else
-			JOptionPane.showMessageDialog(null, "I dati inseriti non sono corretti.", "Accesso negato", JOptionPane.WARNING_MESSAGE);
-				}
-				catch(Exception ex){}
+	
+		}
+		catch(Exception ex){}
 	}
 	
 
